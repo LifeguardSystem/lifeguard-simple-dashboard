@@ -1,0 +1,5 @@
+.nvimlog
+venv
+dist
+build
+*.egg-info
