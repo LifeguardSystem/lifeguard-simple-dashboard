@@ -25,9 +25,9 @@ def send_status(status):
     return response
 
 
-def send_file(path, content_type):
+def send_file(path, content_type, opentype="r"):
     absolute_path = pathlib.Path(__file__).parent.parent.absolute()
-    with open(join(absolute_path, "public", path), "r") as file:
+    with open(join(absolute_path, "public", path), opentype) as file:
         response = Response()
         response.content = file.read()
         response.content_type = content_type
@@ -38,6 +38,14 @@ def dashboard_send_css(path):
     try:
         logger.info("returning css %s", path)
         return send_file("css/{}".format(path), "text/css")
+    except:
+        return send_status(404)
+
+
+def dashboard_send_img(path):
+    try:
+        logger.info("returning img %s", path)
+        return send_file("img/{}".format(path), "image/jpeg", "rb")
     except:
         return send_status(404)
 
